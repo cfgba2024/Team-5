@@ -1,10 +1,13 @@
 // src/CompleteForm.js
 import React, { useState } from 'react';
+import { readSpreadsheet, writeSpreadsheet } from './spreadsheetUtils';
 
 const CompleteForm = ({ formFields }) => {
   const [completedForm, setCompletedForm] = useState(
     formFields.map(field => ({ ...field, value: '' }))
   );
+  const [spreadsheetData, setSpreadsheetData] = useState([]);
+  const [file, setFile] = useState(null);
 
   const handleFieldChange = (index, event) => {
     const updatedFields = completedForm.map((field, i) =>
@@ -13,15 +16,23 @@ const CompleteForm = ({ formFields }) => {
     setCompletedForm(updatedFields);
   };
 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setFile(file);
+    readSpreadsheet(file).then(data => setSpreadsheetData(data));
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Completed Form Data:', completedForm);
-    // Here you can add logic to save the completed form data
+    const newData = [...spreadsheetData, ...completedForm];
+    writeSpreadsheet(newData, 'updated_spreadsheet.xlsx');
+    setSpreadsheetData(newData);
   };
 
   return (
     <div>
       <h1>Complete the Form</h1>
+      <input type="file" accept=".xlsx, .xls" onChange={handleFileChange} />
       <form onSubmit={handleSubmit}>
         {completedForm.map((field, index) => (
           <div key={index}>
@@ -35,6 +46,25 @@ const CompleteForm = ({ formFields }) => {
         ))}
         <button type="submit">Submit</button>
       </form>
+      <h2>Spreadsheet Data</h2>
+      <table>
+        <thead>
+          <tr>
+            {spreadsheetData.length > 0 && Object.keys(spreadsheetData[0]).map((key, index) => (
+              <th key={index}>{key}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {spreadsheetData.map((row, rowIndex) => (
+            <tr key={rowIndex}>
+              {Object.values(row).map((value, colIndex) => (
+                <td key={colIndex}>{value}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
