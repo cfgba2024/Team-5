@@ -1,9 +1,18 @@
-import { Informes } from "../components/Informes";
+import { Informes } from "../components/Informes.jsx";
+import Images from "../components/IMAGES.JSX";
 
 export function PaginaInformes(){
     return(
-        <div>
+        <>
+        <>
+         <Images />    
+    </>
+        <> 
+        <TextField id="standard-basic" label="Standard" variant="standard" />
+        </>
+
+           
             <Informes />
-        </div>
-    );
+        </>
+);
 }
