@@ -1,9 +1,8 @@
-import { NavBar } from "../components/NavBar";
-
-export function PaginaPrincipal(){
-    return(
-        <div>
-            <NavBar />
-        </div>
-    );
+import Foro from "../components/foro"; 
+export function PaginaPrincipal() {
+  return (
+    <div>
+      <Foro />
+    </div>
+  );
 }
