@@ -1,0 +1,51 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #c3e4c4; /* Light green background */
+    color: #2e7d32; /* Dark green text */
+    margin: 0;
+    padding: 0;
+  }
+  
+  .App {
+    padding: 20px;
+    background-color: #c3e4c4; /* Light green background for the app container */
+    border: 1px solid #c3e4c4; /* Medium green border */
+  }
+  
+  button, .MuiButton-root {
+    background-color: #66bb6a; /* Medium green button background */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  button:hover, .MuiButton-root:hover {
+    background-color: #4caf50; /* Darker green on hover */
+  }
+  
+  input, .MuiTextField-root {
+    border: 1px solid #66bb6a; /* Medium green border for inputs */
+    padding: 10px;
+    margin: 10px 0;
+  }
+  
+  table, .MuiTable-root {
+    background-color: #c8e6c9; /* Light green background for tables */
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td, .MuiTableCell-root {
+    border: 1px solid #66bb6a; /* Medium green border for table cells */
+    padding: 10px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #a5d6a7; /* Light green background for table headers */
+  }
+  
+  tr:nth-child(even) {
+    background-color: #e8f5e9; /* Light green background for even rows */
+  }
