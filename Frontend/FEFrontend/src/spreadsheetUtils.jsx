@@ -18,7 +18,13 @@ export const readSpreadsheet = (file) => {
 };
 
 export const writeSpreadsheet = (data, fileName) => {
-  const worksheet = XLSX.utils.json_to_sheet(data);
+  // Add current date and time to each row
+  const updatedData = data.map(row => ({
+    ...row,
+    'Upload Date': new Date().toLocaleString()
+  }));
+
+  const worksheet = XLSX.utils.json_to_sheet(updatedData);
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
   XLSX.writeFile(workbook, fileName);

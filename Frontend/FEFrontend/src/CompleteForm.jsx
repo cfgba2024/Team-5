@@ -1,4 +1,3 @@
-// src/CompleteForm.js
 import React, { useState } from 'react';
 import { readSpreadsheet, writeSpreadsheet } from './spreadsheetUtils';
 
@@ -24,9 +23,13 @@ const CompleteForm = ({ formFields }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newData = [...spreadsheetData, ...completedForm];
-    writeSpreadsheet(newData, 'updated_spreadsheet.xlsx');
-    setSpreadsheetData(newData);
+    const newData = completedForm.map(row => ({
+      ...row,
+      'Upload Date': new Date().toLocaleString()
+    }));
+    const updatedData = [...spreadsheetData, ...newData];
+    writeSpreadsheet(updatedData, 'updated_spreadsheet.xlsx');
+    setSpreadsheetData(updatedData);
   };
 
   return (
