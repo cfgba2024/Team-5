@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { readSpreadsheet, writeSpreadsheet } from './spreadsheetUtils';
+import { Container, TextField, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
 
 const CompleteForm = ({ formFields }) => {
   const [completedForm, setCompletedForm] = useState(
@@ -33,42 +34,45 @@ const CompleteForm = ({ formFields }) => {
   };
 
   return (
-    <div>
-      <h1>Complete the Form</h1>
+    <Container>
+      <Typography variant="h4" gutterBottom>Complete the Form</Typography>
       <input type="file" accept=".xlsx, .xls" onChange={handleFileChange} />
       <form onSubmit={handleSubmit}>
         {completedForm.map((field, index) => (
           <div key={index}>
-            <label>{field.label}</label>
-            <input
-              type="text"
+            <TextField
+              label={field.label}
               value={field.value}
               onChange={(e) => handleFieldChange(index, e)}
+              fullWidth
+              margin="normal"
             />
           </div>
         ))}
-        <button type="submit">Submit</button>
+        <Button type="submit" variant="contained" color="primary">Submit</Button>
       </form>
-      <h2>Spreadsheet Data</h2>
-      <table>
-        <thead>
-          <tr>
-            {spreadsheetData.length > 0 && Object.keys(spreadsheetData[0]).map((key, index) => (
-              <th key={index}>{key}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {spreadsheetData.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              {Object.values(row).map((value, colIndex) => (
-                <td key={colIndex}>{value}</td>
+      <Typography variant="h5" gutterBottom>Spreadsheet Data</Typography>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              {spreadsheetData.length > 0 && Object.keys(spreadsheetData[0]).map((key, index) => (
+                <TableCell key={index}>{key}</TableCell>
               ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {spreadsheetData.map((row, rowIndex) => (
+              <TableRow key={rowIndex}>
+                {Object.values(row).map((value, colIndex) => (
+                  <TableCell key={colIndex}>{value}</TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Container>
   );
 };
 

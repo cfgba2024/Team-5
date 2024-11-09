@@ -1,6 +1,6 @@
-// src/GoogleFormBuilder.js
 import React, { useState } from 'react';
 import CompleteForm from './CompleteForm';
+import { Container, TextField, Button, Typography } from '@mui/material';
 
 const GoogleFormBuilder = () => {
   const [formFields, setFormFields] = useState([]);
@@ -20,37 +20,39 @@ const GoogleFormBuilder = () => {
   };
 
   return (
-    <div>
+    <Container>
       {!showCompleteForm ? (
         <>
-          <h1>Google Form Builder</h1>
+          <Typography variant="h4" gutterBottom>Google Form Builder</Typography>
           <div>
-            <input
-              type="text"
+            <TextField
+              label="New field label"
               value={newField}
               onChange={(e) => setNewField(e.target.value)}
-              placeholder="New field label"
+              fullWidth
+              margin="normal"
             />
-            <button onClick={addField}>Add Field</button>
+            <Button onClick={addField} variant="contained" color="primary">Add Field</Button>
           </div>
           <form>
             {formFields.map((field, index) => (
               <div key={index}>
-                <label>{field.label}</label>
-                <input
-                  type="text"
+                <TextField
+                  label={field.label}
                   value={field.value}
                   onChange={(e) => handleFieldChange(index, e)}
+                  fullWidth
+                  margin="normal"
                 />
               </div>
             ))}
           </form>
-          <button onClick={() => setShowCompleteForm(true)}>Complete Form</button>
+          <Button onClick={() => setShowCompleteForm(true)} variant="contained" color="primary">Complete Form</Button>
         </>
       ) : (
         <CompleteForm formFields={formFields} />
       )}
-    </div>
+    </Container>
   );
 };
 
