@@ -7,9 +7,7 @@ export function PaginaInformes(){
         <>
          <Images />    
     </>
-        <> 
-        <TextField id="standard-basic" label="Standard" variant="standard" />
-        </>
+        
 
            
             <Informes />
